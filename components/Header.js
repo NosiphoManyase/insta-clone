@@ -13,6 +13,7 @@ export default function Header() {
              src={'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png?20160616034027'}
              fill
              className='object-contain'
+             alt='instagram word logo'
             />
         </div>
         <div className='cursor-pointer h-24 w-10 relative lg:hidden '>
@@ -20,6 +21,7 @@ export default function Header() {
              src={'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/1200px-Instagram-Icon.png'}
              fill
              className='object-contain'
+             alt='instagram icon logo'
             />
         </div>
 
