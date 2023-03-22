@@ -1,4 +1,5 @@
 import React from 'react'
+import MiniProfile from './MiniProfile'
 import Posts from './Posts'
 import Stories from './Stories'
 
@@ -12,10 +13,12 @@ export default function Feed() {
             
         </section>
         <section className='hidden md:inline-grid'>
-            {/* Mini Profile */}
+           <div>
+                 {/* Mini Profile */}
+                 <MiniProfile />
 
-            {/* Suggestions */}
-
+                 {/* Suggestions */}
+           </div>
         </section>
     </main>
   )
