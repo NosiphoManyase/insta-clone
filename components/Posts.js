@@ -14,7 +14,30 @@ export default function Posts() {
             }
         )
         return unsubscribe
-    })
+    }, [db])
+    
+  return (
+    <div>
+        {posts.map(post => (
+            <Post key={post.id} 
+                id={post.id}
+                username={post.data().username}
+                userImg={post.data().profileImg}
+                img={post.data().image}
+                caption={post.data().caption}
+            />
+        ))}
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
     // const posts = [
     //     {
     //         id: '1',
@@ -38,18 +61,3 @@ export default function Posts() {
     //         caption: 'hanging with the girlies'
     //     },
     // ]
-    
-  return (
-    <div>
-        {posts.map(post => (
-            <Post key={post.id} 
-                id={post.id}
-                username={post.data().username}
-                userImg={post.data().profileImg}
-                img={post.data().image}
-                caption={post.data().caption}
-            />
-        ))}
-    </div>
-  )
-}
