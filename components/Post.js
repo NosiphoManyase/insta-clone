@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { EllipsisHorizontalIcon, HeartIcon, ChatBubbleOvalLeftEllipsisIcon, BookmarkIcon, FaceSmileIcon } from '@heroicons/react/24/outline'
+import { HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import { useSession } from 'next-auth/react'
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, setDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import Moment from 'react-moment';
 
@@ -9,6 +10,8 @@ export default function Post({ img, userImg, caption, username, id}) {
     const { data: session } = useSession()
     const [comment, setComment] = useState('')
     const [comments, setComments] = useState('')
+    const [likes, setLikes] = useState([])
+    const [hasLiked, setHasLiked] = useState(false)
 
     useEffect(() => {
         const unsubscribe = onSnapshot(
@@ -18,6 +21,34 @@ export default function Post({ img, userImg, caption, username, id}) {
             snapshot => setComments(snapshot.docs)
         )
     }, [db, id])
+
+    useEffect(() => {
+        const unsubscribe = onSnapshot(
+            collection(db, 'posts', id, 'likes'),
+            snapshot => setLikes(snapshot.docs)
+        )
+    
+    }, [db])
+
+    useEffect(() => {
+        setHasLiked(
+            //check if logged in user has liked
+            likes.findIndex(like => like.id === session.user.uid) !== -1
+        )
+    }, [likes])
+
+    const likedPost = async () => {
+        if(hasLiked){
+            await deleteDoc(doc(db, 'posts', id , 'likes', session.user.uid))
+        }
+        else{
+            await setDoc(doc(db, 'posts', id , 'likes', session.user.uid), {
+                username: session.user.username, 
+            })
+        }
+        
+        
+    }
 
     const sendComment = async (e) => {
         e.preventDefault()
@@ -49,7 +80,8 @@ export default function Post({ img, userImg, caption, username, id}) {
         {session && (
             <div className='flex justify-between px-4 pt-14'>
             <div className='flex space-x-4'>
-                <HeartIcon className='btn'/>
+                {hasLiked? <HeartIconFilled onClick={likedPost} className='btn text-red-400'/>
+                :<HeartIcon onClick={likedPost} className='btn'/>}
                 <ChatBubbleOvalLeftEllipsisIcon className='btn' />
             </div>
             <BookmarkIcon className='btn' />
