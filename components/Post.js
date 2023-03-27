@@ -33,7 +33,7 @@ export default function Post({ img, userImg, caption, username, id}) {
     useEffect(() => {
         setHasLiked(
             //check if logged in user has liked
-            likes.findIndex(like => like.id === session.user.uid) !== -1
+            likes.findIndex(like => like.id === session?.user.uid) !== -1
         )
     }, [likes])
 
