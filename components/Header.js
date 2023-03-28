@@ -19,7 +19,7 @@ export default function Header() {
         <div className='cursor-pointer h-24 w-24 relative hidden lg:inline-grid'>
             <Image
              src={'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png?20160616034027'}
-             fill
+             layout='fill'
              className='object-contain'
              alt='instagram word logo'
              onClick={() => router.push('/')}
@@ -28,7 +28,7 @@ export default function Header() {
         <div className='cursor-pointer h-24 w-10 relative lg:hidden '>
             <Image
              src={'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Instagram-Icon.png/1200px-Instagram-Icon.png'}
-             fill
+             layout='fill'
              className='object-contain'
              alt='instagram icon logo'
              onClick={() => router.push('/')}
